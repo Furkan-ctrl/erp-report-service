@@ -1,3 +1,24 @@
+server:
+  port: ${REPORT_PORT:8084}
+
 spring:
   application:
     name: report-service
+
+  datasource:
+    url: ${ORDER_DB_URL:jdbc:postgresql://localhost:5434/order_db}
+    username: ${ORDER_DB_USER:order_user}
+    password: ${ORDER_DB_PASS:order_pass}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    com.erp.report: DEBUG
