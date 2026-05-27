@@ -12,9 +12,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MonthlySalesRow {
-    private int year;
-    private int month;
-    private long orderCount;
+    private Integer year;
+    private Integer month;
+    private Long orderCount;
     private BigDecimal totalRevenue;
-    private BigDecimal avgOrderValue;
+    private Double avgOrderValue;
 }

@@ -6,9 +6,9 @@ spring:
     name: report-service
 
   datasource:
-    url: ${ORDER_DB_URL:jdbc:postgresql://localhost:5434/order_db}
-    username: ${ORDER_DB_USER:order_user}
-    password: ${ORDER_DB_PASS:order_pass}
+    url: ${ORDER_DB_URL:jdbc:postgresql://localhost:5432/order_db}
+    username: postgres
+    password: 2007
     driver-class-name: org.postgresql.Driver
 
   jpa:

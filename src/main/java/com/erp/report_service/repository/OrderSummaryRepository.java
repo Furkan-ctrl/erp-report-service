@@ -13,35 +13,32 @@ public interface OrderSummaryRepository extends JpaRepository<OrderSummary, Long
 
     @Query("""
         SELECT new com.erp.report_service.dto.MonthlySalesRow(
-            FUNCTION('YEAR',  o.createdAt),
-            FUNCTION('MONTH', o.createdAt),
+            CAST(YEAR(o.createdAt) AS Integer),
+            CAST(MONTH(o.createdAt) AS Integer),
             COUNT(o.id),
             SUM(o.totalAmount),
-            AVG(o.totalAmount)
+            CAST(AVG(o.totalAmount) AS Double)
         )
         FROM OrderSummary o
         WHERE o.status IN ('CONFIRMED', 'COMPLETED')
-        GROUP BY FUNCTION('YEAR', o.createdAt),
-                 FUNCTION('MONTH', o.createdAt)
-        ORDER BY FUNCTION('YEAR', o.createdAt) DESC,
-                 FUNCTION('MONTH', o.createdAt) DESC
+        GROUP BY YEAR(o.createdAt), MONTH(o.createdAt)
+        ORDER BY YEAR(o.createdAt) DESC, MONTH(o.createdAt) DESC
         """)
     List<MonthlySalesRow> getMonthlySales();
 
     @Query("""
         SELECT new com.erp.report_service.dto.MonthlySalesRow(
-            FUNCTION('YEAR',  o.createdAt),
-            FUNCTION('MONTH', o.createdAt),
+            CAST(YEAR(o.createdAt) AS Integer),
+            CAST(MONTH(o.createdAt) AS Integer),
             COUNT(o.id),
             SUM(o.totalAmount),
-            AVG(o.totalAmount)
+            CAST(AVG(o.totalAmount) AS Double)
         )
         FROM OrderSummary o
         WHERE o.status IN ('CONFIRMED', 'COMPLETED')
-          AND FUNCTION('YEAR', o.createdAt) = :year
-        GROUP BY FUNCTION('YEAR', o.createdAt),
-                 FUNCTION('MONTH', o.createdAt)
-        ORDER BY FUNCTION('MONTH', o.createdAt) ASC
+          AND YEAR(o.createdAt) = :year
+        GROUP BY YEAR(o.createdAt), MONTH(o.createdAt)
+        ORDER BY MONTH(o.createdAt) ASC
         """)
     List<MonthlySalesRow> getMonthlySalesByYear(@Param("year") int year);
 }
